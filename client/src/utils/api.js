@@ -5,9 +5,11 @@
 const isLocalhost = typeof window !== 'undefined' && 
   (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
-export const API_BASE = 
-  import.meta.env.VITE_API_URL || 
-  (isLocalhost ? '' : 'https://urbanbite-cafe-9qhh.onrender.com');
+const rawBase = (import.meta.env.VITE_API_URL || 
+  (isLocalhost ? '' : 'https://urbanbite-cafe-9qhh.onrender.com')).trim();
+
+// Strip any trailing slashes so concatenating with /endpoint never produces double slashes (e.g. //api)
+export const API_BASE = rawBase.replace(/\/+$/, '');
 
 export function apiUrl(endpoint) {
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;

@@ -25,6 +25,14 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
+// Normalize duplicated leading or consecutive slashes (e.g. //api/... -> /api/...)
+app.use((req, res, next) => {
+  if (req.url) {
+    req.url = req.url.replace(/\/{2,}/g, '/');
+  }
+  next();
+});
+
 // CORS configuration supporting client URL, Vercel deployments, and local origins
 app.use(cors({
   origin: (origin, callback) => {

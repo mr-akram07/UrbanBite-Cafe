@@ -107,9 +107,15 @@ export default function OwnerDashboard() {
         })
       });
 
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        setLoginError(data.error || 'Invalid ID or Password.');
+      let data = null;
+      try {
+        data = await res.json();
+      } catch (jsonErr) {
+        data = null;
+      }
+
+      if (!res.ok || !data || !data.success) {
+        setLoginError((data && data.error) || (res.status === 401 ? 'Invalid ID or Password.' : `Server error (${res.status}). Please check backend.`));
         setLoggingIn(false);
         return;
       }
@@ -121,7 +127,7 @@ export default function OwnerDashboard() {
       setIsAuthenticated(true);
       setLoggingIn(false);
     } catch (err) {
-      setLoginError('Error connecting to authentication service. Please check connection.');
+      setLoginError('Error connecting to backend service. Please verify server is awake.');
       setLoggingIn(false);
     }
   };
