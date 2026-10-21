@@ -25,9 +25,23 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
-// CORS configuration supporting client URL and local origins
+// CORS configuration supporting client URL, Vercel deployments, and local origins
 app.use(cors({
-  origin: [CLIENT_URL, 'http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000'],
+  origin: (origin, callback) => {
+    // Allow requests with no origin (curl, mobile apps, server-to-server)
+    if (!origin) return callback(null, true);
+    // Allow localhost, vercel.app, or explicitly configured CLIENT_URL
+    if (
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1') ||
+      origin.endsWith('.vercel.app') ||
+      origin === CLIENT_URL
+    ) {
+      return callback(null, true);
+    }
+    // Fallback allow for deployed frontends
+    return callback(null, true);
+  },
   credentials: true
 }));
 
@@ -40,8 +54,94 @@ app.use((req, res, next) => {
 });
 
 // ==========================================
-// HEALTH & DB STATUS ENDPOINT
+// ROOT & HEALTH ENDPOINTS
 // ==========================================
+app.get('/', (req, res) => {
+  res.status(200).send(`
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>UrbanBite Cafe API Server</title>
+        <style>
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+          }
+          .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+          }
+          .title { font-size: 1.8rem; font-weight: 800; color: #f59e0b; margin-bottom: 0.5rem; }
+          .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+          .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.4rem 1rem;
+            background: #065f46;
+            color: #34d399;
+            border: 1px solid #059669;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+          }
+          .badge::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+          }
+          .endpoints {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: left;
+            font-family: monospace;
+            font-size: 0.85rem;
+          }
+          .endpoint-item { margin-bottom: 0.5rem; }
+          .endpoint-item:last-child { margin-bottom: 0; }
+          .endpoint-item a { color: #38bdf8; text-decoration: none; font-weight: bold; }
+          .endpoint-item a:hover { text-decoration: underline; }
+          .method { color: #a78bfa; margin-right: 0.5rem; }
+        </style>
+      </head>
+      <body>
+        <div class="card">
+          <h1 class="title">🍽️ UrbanBite Cafe</h1>
+          <p class="subtitle">Express API & Reservation Backend Service</p>
+          <div class="badge">API Online & Healthy</div>
+          <div class="endpoints">
+            <div class="endpoint-item"><span class="method">GET</span><a href="/api/health">/api/health</a> - Status & DB Check</div>
+            <div class="endpoint-item"><span class="method">GET</span><a href="/api/tables">/api/tables</a> - Floor Layout</div>
+            <div class="endpoint-item"><span class="method">GET</span><a href="/api/settings">/api/settings</a> - Cafe Details</div>
+          </div>
+        </div>
+      </body>
+    </html>
+  `);
+});
+
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
