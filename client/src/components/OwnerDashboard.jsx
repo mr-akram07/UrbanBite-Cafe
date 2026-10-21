@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { getLocalDateString } from '../utils/dateUtils';
 import { useSettings } from '../context/SettingsContext';
+import { apiUrl } from '../utils/api';
 
 export default function OwnerDashboard() {
   const todayStr = getLocalDateString(0);
@@ -97,7 +98,7 @@ export default function OwnerDashboard() {
     setLoginError(null);
 
     try {
-      const res = await fetch('/api/admin/login', {
+      const res = await fetch(apiUrl('/api/admin/login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -151,7 +152,7 @@ export default function OwnerDashboard() {
 
     setSavingCreds(true);
     try {
-      const res = await fetch('/api/admin/change-credentials', {
+      const res = await fetch(apiUrl('/api/admin/change-credentials'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -194,11 +195,11 @@ export default function OwnerDashboard() {
     setLoading(true);
     try {
       const [bookingsRes, statsRes, waitlistRes, tablesRes, settingsRes] = await Promise.all([
-        fetch(`/api/bookings?date=${date}&search=${encodeURIComponent(searchTerm)}`),
-        fetch('/api/admin/stats'),
-        fetch(`/api/waitlist?date=${date}`),
-        fetch('/api/tables'),
-        fetch('/api/settings')
+        fetch(apiUrl(`/api/bookings?date=${date}&search=${encodeURIComponent(searchTerm)}`)),
+        fetch(apiUrl('/api/admin/stats')),
+        fetch(apiUrl(`/api/waitlist?date=${date}`)),
+        fetch(apiUrl('/api/tables')),
+        fetch(apiUrl('/api/settings'))
       ]);
 
       const bookingsData = await bookingsRes.json();
@@ -230,7 +231,7 @@ export default function OwnerDashboard() {
     e.preventDefault();
     setSavingSettings(true);
     try {
-      const res = await fetch('/api/settings', {
+      const res = await fetch(apiUrl('/api/settings'), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(settings)
@@ -253,7 +254,7 @@ export default function OwnerDashboard() {
   const handleAddTable = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/tables', {
+      const res = await fetch(apiUrl('/api/tables'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -282,7 +283,7 @@ export default function OwnerDashboard() {
   const handleToggleTableStatus = async (table) => {
     const newStatus = table.status === 'Active' ? 'Inactive' : 'Active';
     try {
-      const res = await fetch(`/api/tables/${table.id}`, {
+      const res = await fetch(apiUrl(`/api/tables/${table.id}`), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
@@ -302,7 +303,7 @@ export default function OwnerDashboard() {
   const handleDeleteTable = async (tableId, tableNumber) => {
     if (!window.confirm(`Are you sure you want to remove Table #${tableNumber}?`)) return;
     try {
-      const res = await fetch(`/api/tables/${tableId}`, {
+      const res = await fetch(apiUrl(`/api/tables/${tableId}`), {
         method: 'DELETE'
       });
       const data = await res.json();
@@ -321,7 +322,7 @@ export default function OwnerDashboard() {
   // Update booking status
   const handleUpdateStatus = async (bookingId, newStatus) => {
     try {
-      const res = await fetch(`/api/bookings/${bookingId}/status`, {
+      const res = await fetch(apiUrl(`/api/bookings/${bookingId}/status`), {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
@@ -341,7 +342,7 @@ export default function OwnerDashboard() {
   const handleOwnerCancel = async () => {
     if (!cancelModalBooking) return;
     try {
-      const res = await fetch(`/api/bookings/${cancelModalBooking.id}/cancel`, {
+      const res = await fetch(apiUrl(`/api/bookings/${cancelModalBooking.id}/cancel`), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -373,7 +374,7 @@ export default function OwnerDashboard() {
     setDeletingId(deleteModalBooking.id);
 
     try {
-      const res = await fetch(`/api/bookings/${deleteModalBooking.id}`, {
+      const res = await fetch(apiUrl(`/api/bookings/${deleteModalBooking.id}`), {
         method: 'DELETE'
       });
       const data = await res.json();
@@ -400,7 +401,7 @@ export default function OwnerDashboard() {
     if (!window.confirm(`Are you sure you want to permanently delete all ${cancelledCount} cancelled reservations?`)) return;
     setClearingCancelled(true);
     try {
-      const res = await fetch('/api/bookings/clear-cancelled', {
+      const res = await fetch(apiUrl('/api/bookings/clear-cancelled'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ date })
@@ -421,7 +422,7 @@ export default function OwnerDashboard() {
   // Waitlist Status
   const handleWaitlistStatus = async (id, status) => {
     try {
-      await fetch(`/api/waitlist/${id}`, {
+      await fetch(apiUrl(`/api/waitlist/${id}`), {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status })

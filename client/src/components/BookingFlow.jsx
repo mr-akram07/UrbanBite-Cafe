@@ -4,6 +4,7 @@ import { Calendar, Clock, Users, CheckCircle, AlertCircle, ChevronRight, ShieldC
 import BookingModal from './BookingModal';
 import { getLocalDateString, formatTime12 } from '../utils/dateUtils';
 import { useSettings } from '../context/SettingsContext';
+import { apiUrl } from '../utils/api';
 
 function timeToMinutes(t) {
   if (!t) return 0;
@@ -49,7 +50,7 @@ export default function BookingFlow() {
 
   const fetchTablesAndSettings = () => {
     setLoading(true);
-    fetch(`/api/tables?date=${date}&startTime=${startTime}&duration=${duration}`)
+    fetch(apiUrl(`/api/tables?date=${date}&startTime=${startTime}&duration=${duration}`))
       .then(res => res.json())
       .then(data => {
         if (data.success) {

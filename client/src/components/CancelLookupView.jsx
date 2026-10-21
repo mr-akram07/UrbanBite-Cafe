@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Calendar, Clock, User, Phone, Users, CheckCircle, AlertTriangle, Lock, XCircle } from 'lucide-react';
+import { apiUrl } from '../utils/api';
 
 export default function CancelLookupView() {
   const [query, setQuery] = useState('');
@@ -22,7 +23,7 @@ export default function CancelLookupView() {
     setCancelError(null);
 
     try {
-      const codeRes = await fetch(`/api/bookings/lookup/${encodeURIComponent(query.trim())}`);
+      const codeRes = await fetch(apiUrl(`/api/bookings/lookup/${encodeURIComponent(query.trim())}`));
       const codeData = await codeRes.json();
 
       if (codeRes.ok && codeData.success && codeData.booking) {
@@ -31,7 +32,7 @@ export default function CancelLookupView() {
         return;
       }
 
-      const searchRes = await fetch(`/api/bookings?search=${encodeURIComponent(query.trim())}`);
+      const searchRes = await fetch(apiUrl(`/api/bookings?search=${encodeURIComponent(query.trim())}`));
       const searchData = await searchRes.json();
 
       if (searchRes.ok && searchData.success && searchData.bookings.length > 0) {
@@ -54,7 +55,7 @@ export default function CancelLookupView() {
     setCancelError(null);
 
     try {
-      const res = await fetch(`/api/bookings/${cancelModalBooking.id}/cancel`, {
+      const res = await fetch(apiUrl(`/api/bookings/${cancelModalBooking.id}/cancel`), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ reason: 'Cancelled by customer via portal' })

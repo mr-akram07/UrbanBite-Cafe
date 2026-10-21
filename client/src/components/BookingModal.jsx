@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Calendar, Clock, Users, User, Phone, Mail, FileText, AlertTriangle, CheckCircle, ShieldAlert } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { getLocalDateString } from '../utils/dateUtils';
+import { apiUrl } from '../utils/api';
 
 function timeToMinutes(t) {
   if (!t) return 0;
@@ -78,7 +79,7 @@ export default function BookingModal({
     }
 
     let isMounted = true;
-    fetch('/api/bookings/validate', {
+    fetch(apiUrl('/api/bookings/validate'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -123,7 +124,7 @@ export default function BookingModal({
     setConflictError(null);
 
     try {
-      const response = await fetch('/api/bookings', {
+      const response = await fetch(apiUrl('/api/bookings'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

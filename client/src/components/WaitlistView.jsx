@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Users, Clock, Phone, User, CheckCircle, AlertCircle, PlusCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { apiUrl } from '../utils/api';
 
 export default function WaitlistView() {
   const [waitlist, setWaitlist] = useState([]);
@@ -18,7 +19,7 @@ export default function WaitlistView() {
 
   const fetchWaitlist = () => {
     setLoading(true);
-    fetch('/api/waitlist')
+    fetch(apiUrl('/api/waitlist'))
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -40,7 +41,7 @@ export default function WaitlistView() {
     setSuccessMessage(null);
 
     try {
-      const res = await fetch('/api/waitlist', {
+      const res = await fetch(apiUrl('/api/waitlist'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
