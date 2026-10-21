@@ -1,0 +1,8 @@
+/* App-level responsive utilities */
+@media (max-width: 768px) {
+  header nav {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

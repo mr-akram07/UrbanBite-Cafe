@@ -1,0 +1,388 @@
+:root,
+[data-theme="dark"] {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+
+  /* Premium Modern Dark Palette */
+  --bg-body: #090D16;
+  --bg-body-gradient: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.05) 0%, transparent 65%);
+  --bg-surface: #111726;
+  --bg-surface-elevated: #161F33;
+  --bg-surface-hover: #1C2740;
+  
+  /* Borders */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-focus: #F59E0B;
+  --border-gold: rgba(245, 158, 11, 0.35);
+
+  /* Warm Amber Gold Accents */
+  --primary-gold: #F59E0B;
+  --primary-gold-hover: #D97706;
+  --gold-gradient: linear-gradient(135deg, #FBBF24 0%, #F59E0B 50%, #D97706 100%);
+  --gold-text: #FDE68A;
+  --gold-badge-bg: rgba(245, 158, 11, 0.12);
+  --gold-badge-border: rgba(245, 158, 11, 0.25);
+
+  /* Status Colors */
+  --status-available: #10B981;
+  --status-available-bg: rgba(16, 185, 129, 0.12);
+  --status-available-border: rgba(16, 185, 129, 0.3);
+
+  --status-booked: #F43F5E;
+  --status-booked-bg: rgba(244, 63, 94, 0.12);
+  --status-booked-border: rgba(244, 63, 94, 0.3);
+
+  --status-buffer: #F59E0B;
+  --status-buffer-bg: rgba(245, 158, 11, 0.12);
+  --status-buffer-border: rgba(245, 158, 11, 0.3);
+
+  /* Typography Colors */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-heading: #FFFFFF;
+
+  /* Controls & Layout */
+  --input-bg: #0C121E;
+  --input-border: rgba(255, 255, 255, 0.12);
+  --input-text: #FFFFFF;
+  --navbar-bg: rgba(9, 13, 22, 0.85);
+  --footer-bg: rgba(8, 10, 16, 0.95);
+  --nav-btn-bg: rgba(255, 255, 255, 0.03);
+  --btn-secondary-bg: rgba(255, 255, 255, 0.04);
+  --btn-secondary-hover: rgba(255, 255, 255, 0.08);
+  --modal-backdrop: rgba(0, 0, 0, 0.75);
+  --close-btn-bg: rgba(255, 255, 255, 0.06);
+  --voucher-bg: #0D131F;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+}
+
+/* Light Theme Variables */
+[data-theme="light"] {
+  --bg-body: #F8FAFC;
+  --bg-body-gradient: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.07) 0%, transparent 65%);
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #F1F5F9;
+  --bg-surface-hover: #E2E8F0;
+
+  /* Borders */
+  --border-color: #E2E8F0;
+  --border-subtle: #EDF2F7;
+  --border-focus: #D97706;
+  --border-gold: rgba(217, 119, 6, 0.35);
+
+  /* Warm Amber Gold Accents */
+  --primary-gold: #D97706;
+  --primary-gold-hover: #B45309;
+  --gold-gradient: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  --gold-text: #B45309;
+  --gold-badge-bg: rgba(245, 158, 11, 0.14);
+  --gold-badge-border: rgba(217, 119, 6, 0.3);
+
+  /* Status Colors */
+  --status-available: #059669;
+  --status-available-bg: rgba(16, 185, 129, 0.12);
+  --status-available-border: rgba(16, 185, 129, 0.35);
+
+  --status-booked: #E11D48;
+  --status-booked-bg: rgba(244, 63, 94, 0.12);
+  --status-booked-border: rgba(244, 63, 94, 0.35);
+
+  --status-buffer: #D97706;
+  --status-buffer-bg: rgba(245, 158, 11, 0.12);
+  --status-buffer-border: rgba(217, 119, 6, 0.35);
+
+  /* Typography Colors */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --text-heading: #0F172A;
+
+  /* Controls & Layout */
+  --input-bg: #FFFFFF;
+  --input-border: #CBD5E1;
+  --input-text: #0F172A;
+  --navbar-bg: rgba(255, 255, 255, 0.9);
+  --footer-bg: #FFFFFF;
+  --nav-btn-bg: #F1F5F9;
+  --btn-secondary-bg: #F1F5F9;
+  --btn-secondary-hover: #E2E8F0;
+  --modal-backdrop: rgba(15, 23, 42, 0.65);
+  --close-btn-bg: rgba(15, 23, 42, 0.08);
+  --voucher-bg: #FFFBEB;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-image: var(--bg-body-gradient);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  color: var(--text-heading);
+  letter-spacing: -0.01em;
+}
+
+/* Common Card */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.card-interactive:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--gold-gradient);
+  color: #0A0D14;
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.25);
+  font-family: var(--font-sans);
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  font-weight: 500;
+  font-size: 0.88rem;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  font-family: var(--font-sans);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--btn-secondary-hover);
+  border-color: var(--border-focus);
+}
+
+.btn-danger {
+  background: var(--status-booked-bg);
+  color: var(--status-booked);
+  border: 1px solid var(--status-booked-border);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-family: var(--font-sans);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: var(--status-booked-border);
+  color: #FFFFFF;
+}
+
+.btn-danger:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: var(--btn-secondary-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--btn-secondary-hover);
+  border-color: var(--primary-gold);
+  transform: scale(1.05);
+}
+
+/* Form Controls */
+.form-input, .form-select {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  color: var(--input-text);
+  font-size: 0.92rem;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus, .form-select:focus {
+  border-color: var(--primary-gold);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.form-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Badges */
+.badge-available {
+  background: var(--status-available-bg);
+  color: var(--status-available);
+  border: 1px solid var(--status-available-border);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.badge-booked {
+  background: var(--status-booked-bg);
+  color: var(--status-booked);
+  border: 1px solid var(--status-booked-border);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.badge-buffer {
+  background: var(--status-buffer-bg);
+  color: var(--gold-text);
+  border: 1px solid var(--status-buffer-border);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Clean Alert Boxes */
+.alert-warning {
+  background: var(--status-buffer-bg);
+  border: 1px solid var(--status-buffer-border);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: var(--gold-text);
+}
+
+.alert-danger {
+  background: var(--status-booked-bg);
+  border: 1px solid var(--status-booked-border);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: var(--status-booked);
+}
+
+.alert-success {
+  background: var(--status-available-bg);
+  border: 1px solid var(--status-available-border);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: var(--status-available);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-body);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 120, 0.25);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.5);
+}
